@@ -224,7 +224,18 @@
         <p class="text-uppercase" style="letter-spacing:2px;">We Are Here</p>
         <h1>Build Your Smart Resume with AI</h1>
         <p>Leverage artificial intelligence to create job-winning resumes that stand out in recruiter searches.</p>
-        <a href="/register" class="btn btn-primary btn-lg">Start Free Today</a>
+        <%
+            Object heroLoggedUser = session.getAttribute("loggedUser");
+            if (heroLoggedUser != null) {
+        %>
+            <a href="/resume_form" class="btn btn-primary btn-lg">Build My Resume</a>
+        <%
+            } else {
+        %>
+            <a href="/register" class="btn btn-primary btn-lg">Start Free Today</a>
+        <%
+            }
+        %>
     </div>
 </section>
 
@@ -263,7 +274,18 @@
     <div class="container">
         <h2>About Our Platform</h2>
         <p>Our AI Resume Builder helps you build smarter resumes faster. With modern templates and automated summary generation, you can focus on landing your dream job — not formatting documents.</p>
-        <a href="/register" class="btn btn-primary mt-4">Build My Resume Now</a>
+        <%
+            Object aboutLoggedUser = session.getAttribute("loggedUser");
+            if (aboutLoggedUser != null) {
+        %>
+            <a href="/resume_form" class="btn btn-primary mt-4">Build My Resume Now</a>
+        <%
+            } else {
+        %>
+            <a href="/register" class="btn btn-primary mt-4">Build My Resume Now</a>
+        <%
+            }
+        %>
     </div>
 </section>
 

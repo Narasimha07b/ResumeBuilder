@@ -3,7 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Resume Builder</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -11,9 +13,8 @@
         :root {
             --primary-color: #ffb703;
             --primary-dark: #ffaa00;
-            --bg-gradient: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(33, 47, 70, 0.9));
+            --bg-gradient: linear-gradient(135deg, rgba(13,27,42,0.95), rgba(33,47,70,0.9));
             --text-light: #fff;
-            --text-muted: #b8c1c9;
         }
 
         body {
@@ -23,17 +24,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-gradient),
-                        url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1650&q=80')
-                        center/cover no-repeat;
+            background:
+                var(--bg-gradient),
+                url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1650&q=80')
+                center/cover no-repeat;
         }
 
-        /* Outer container */
         .register-wrapper {
             display: flex;
             width: 90%;
             max-width: 1100px;
-            height: 80vh;
+            min-height: 700px;
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.4);
@@ -41,7 +42,6 @@
             backdrop-filter: blur(12px);
         }
 
-        /* Left section (form side) */
         .left-side {
             flex: 1;
             background: rgba(255,255,255,0.08);
@@ -53,82 +53,73 @@
 
         .register-card {
             width: 85%;
-            max-width: 400px;
+            max-width: 420px;
             background: rgba(255,255,255,0.1);
-            padding: 40px 35px;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
-            color: var(--text-light);
+            color: white;
         }
 
         .register-card h3 {
             text-align: center;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .form-control {
             background: rgba(255,255,255,0.15);
             border: none;
-            color: #fff;
-            padding: 12px 15px;
+            color: white;
             border-radius: 10px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            padding: 12px;
         }
 
         .form-control::placeholder {
-            color: #bbb;
+            color: #ccc;
         }
 
         .form-control:focus {
             background: rgba(255,255,255,0.25);
+            color: white;
             box-shadow: 0 0 0 3px rgba(255,183,3,0.3);
-            outline: none;
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
-            color: #000;
-            font-weight: 600;
-            padding: 12px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
             width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            background: var(--primary-color);
+            color: black;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(255,183,3,0.4);
+            background: var(--primary-dark);
         }
 
         .register-footer {
             text-align: center;
             margin-top: 20px;
-            font-size: 0.95rem;
         }
 
         .register-footer a {
             color: var(--primary-color);
             text-decoration: none;
-            transition: color 0.3s;
         }
 
-        .register-footer a:hover {
-            color: var(--primary-dark);
-        }
-
-        /* Right section (info side) */
         .right-side {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 60px;
-            color: var(--text-light);
-            background: linear-gradient(135deg, rgba(10,15,30,0.9), rgba(25,40,70,0.7));
+            color: white;
+            background: linear-gradient(
+                135deg,
+                rgba(10,15,30,0.9),
+                rgba(25,40,70,0.7)
+            );
         }
 
         .right-side h1 {
@@ -139,22 +130,22 @@
 
         .right-side p {
             font-size: 1.1rem;
-            opacity: 0.9;
             max-width: 400px;
         }
 
-        @media (max-width: 900px) {
-            .register-wrapper {
-                flex-direction: column-reverse;
-                height: auto;
+        @media(max-width:900px){
+            .register-wrapper{
+                flex-direction:column-reverse;
             }
-            .left-side, .right-side {
-                width: 100%;
-                height: auto;
-                padding: 40px;
+
+            .right-side,
+            .left-side{
+                width:100%;
+                padding:40px;
             }
-            .right-side h1 {
-                font-size: 2.2rem;
+
+            .right-side h1{
+                font-size:2rem;
             }
         }
     </style>
@@ -163,36 +154,82 @@
 <body>
 
 <div class="register-wrapper">
-    <!-- Left Side (Form) -->
+
     <div class="left-side">
+
         <div class="register-card">
+
             <h3>Create Your Account</h3>
+
+            <% if(request.getAttribute("msg") != null) { %>
+                <div class="alert alert-success">
+                    <%= request.getAttribute("msg") %>
+                </div>
+            <% } %>
+
+            <% if(request.getAttribute("error") != null) { %>
+                <div class="alert alert-danger">
+                    <%= request.getAttribute("error") %>
+                </div>
+            <% } %>
+
             <form action="/register" method="post">
+
                 <div class="mb-3">
-                    <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Full Name"
+                        required>
                 </div>
+
                 <div class="mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Email Address"
+                        required>
                 </div>
+
                 <div class="mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+
+                <button type="submit" class="btn btn-primary">
+                    Register
+                </button>
+
             </form>
 
-            <div class="register-footer mt-4">
-                <p>Already have an account? <a href="/login">Login</a></p>
+            <div class="register-footer">
+                <p>
+                    Already have an account?
+                    <a href="/login">Login</a>
+                </p>
             </div>
+
         </div>
+
     </div>
 
-    <!-- Right Side (Text) -->
     <div class="right-side">
         <h1>Join Us Today!</h1>
-        <p>Sign up now and let our AI Resume Builder help you craft professional resumes that make recruiters say “Wow!”.</p>
+        <p>
+            Sign up now and let Resume Builder help you create
+            professional resumes that stand out.
+        </p>
     </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

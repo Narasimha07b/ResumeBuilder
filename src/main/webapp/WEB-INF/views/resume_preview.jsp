@@ -3,149 +3,179 @@
 <%
     Resume resume = (Resume) request.getAttribute("resume");
 %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title><%= resume.getFullName() %> | Resume</title>
-    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&display=swap" rel="stylesheet">
+    <title><%= resume.getFullName() %> - Resume</title>
+
     <style>
-        body {
-            font-family: 'Times New Roman', serif;
-            color: #000;
-            background: #fff;
-            margin: 0;
-            padding: 40px 80px;
-            max-width: 900px;
-            margin: auto;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        h1 {
-            font-weight: 700;
-            text-align: center;
-            font-size: 26px;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+        body{
+            font-family: Arial, sans-serif;
+            max-width:900px;
+            margin:auto;
+            padding:40px;
+            line-height:1.6;
+            color:#333;
+            background:#fff;
         }
 
-        .contact {
-            text-align: center;
-            font-size: 13px;
-            margin-bottom: 25px;
+        .header{
+            text-align:center;
+            margin-bottom:20px;
         }
 
-        .contact a {
-            color: #000;
-            text-decoration: none;
-            margin: 0 5px;
+        .header h1{
+            font-size:32px;
+            margin-bottom:8px;
         }
 
-        h2 {
-            font-size: 15px;
-            margin-top: 25px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #000;
-            padding-bottom: 3px;
-            text-transform: uppercase;
-            font-weight: bold;
+        .contact{
+            font-size:14px;
+            color:#555;
         }
 
-        p, li {
-            font-size: 13px;
-            line-height: 1.5;
-            text-align: justify;
+        .contact a{
+            text-decoration:none;
+            color:#007bff;
+            margin:0 5px;
         }
 
-        ul {
-            margin: 0;
-            padding-left: 20px;
+        hr{
+            margin:20px 0;
         }
 
-        .section {
-            margin-bottom: 15px;
+        .section{
+            margin-bottom:20px;
         }
 
-        .edu, .exp, .proj {
-            display: flex;
-            justify-content: space-between;
+        .section h2{
+            font-size:18px;
+            border-bottom:2px solid #333;
+            padding-bottom:5px;
+            margin-bottom:10px;
+            text-transform:uppercase;
         }
 
-        .left {
-            font-weight: bold;
+        .content{
+            white-space:pre-wrap;
         }
 
-        .right {
-            font-style: italic;
+        .btn-download{
+            display:block;
+            width:220px;
+            text-align:center;
+            margin:30px auto;
+            padding:12px;
+            background:#000;
+            color:#fff;
+            text-decoration:none;
+            border-radius:6px;
+            font-weight:bold;
         }
 
-        .btn-download {
-            display: block;
-            width: 200px;
-            margin: 30px auto;
-            text-align: center;
-            background-color: #000;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 5px;
+        .btn-download:hover{
+            background:#222;
         }
 
-        @media print {
-            .btn-download {
-                display: none;
+        @media print{
+            .btn-download{
+                display:none;
+            }
+
+            body{
+                padding:0;
             }
         }
     </style>
 </head>
 
 <body>
+
+<div class="header">
     <h1><%= resume.getFullName() %></h1>
+
     <div class="contact">
-        <%= resume.getLocation() %> |
-        <%= resume.getPhone() %> |
-        <%= resume.getEmail() %> <br>
-        <% if(resume.getLinkedin()!=null){ %><a href="<%= resume.getLinkedin() %>">LinkedIn</a><% } %>
-        <% if(resume.getGithub()!=null){ %> | <a href="<%= resume.getGithub() %>">GitHub</a><% } %>
-        <% if(resume.getLeetcode()!=null){ %> | <a href="<%= resume.getLeetcode() %>">LeetCode</a><% } %>
-        <% if(resume.getCodechef()!=null){ %> | <a href="<%= resume.getCodechef() %>">CodeChef</a><% } %>
-    </div>
+        <%= resume.getLocation() != null ? resume.getLocation() : "" %> |
+        <%= resume.getPhone() != null ? resume.getPhone() : "" %> |
+        <%= resume.getEmail() != null ? resume.getEmail() : "" %>
+        <br><br>
 
-    <!-- Summary -->
-    <div class="section">
-        <h2>Professional Summary</h2>
-        <p><%= resume.getSummary() != null ? resume.getSummary() : "Full Stack Developer specializing in scalable web applications and data-driven systems." %></p>
-    </div>
+        <% if(resume.getLinkedin()!=null && !resume.getLinkedin().isEmpty()){ %>
+            <a href="<%= resume.getLinkedin() %>" target="_blank">LinkedIn</a>
+        <% } %>
 
-    <!-- Education -->
-    <div class="section">
-        <h2>Education</h2>
-        <p><%= resume.getEducation() %></p>
-    </div>
+        <% if(resume.getGithub()!=null && !resume.getGithub().isEmpty()){ %>
+            |
+            <a href="<%= resume.getGithub() %>" target="_blank">GitHub</a>
+        <% } %>
 
-    <!-- Experience -->
-    <div class="section">
-        <h2>Experience</h2>
-        <p><%= resume.getExperience() %></p>
-    </div>
+        <% if(resume.getLeetcode()!=null && !resume.getLeetcode().isEmpty()){ %>
+            |
+            <a href="<%= resume.getLeetcode() %>" target="_blank">LeetCode</a>
+        <% } %>
 
-    <!-- Projects -->
-    <div class="section">
-        <h2>Technical Projects</h2>
-        <p><%= resume.getProjects() %></p>
+        <% if(resume.getCodechef()!=null && !resume.getCodechef().isEmpty()){ %>
+            |
+            <a href="<%= resume.getCodechef() %>" target="_blank">CodeChef</a>
+        <% } %>
     </div>
+</div>
 
-    <!-- Skills -->
-    <div class="section">
-        <h2>Technical Skills</h2>
-        <p><%= resume.getSkills() %></p>
+<hr>
+
+<div class="section">
+    <h2>Professional Summary</h2>
+    <div class="content">
+        <%= resume.getSummary() != null ? resume.getSummary() : "" %>
     </div>
+</div>
 
-    <!-- Achievements -->
-    <div class="section">
-        <h2>Achievements</h2>
-        <p><%= resume.getAchievements() %></p>
+<div class="section">
+    <h2>Education</h2>
+    <div class="content">
+        <%= resume.getEducation() != null ? resume.getEducation() : "" %>
     </div>
+</div>
 
-    <a href="javascript:window.print()" class="btn-download">Download as PDF</a>
+<div class="section">
+    <h2>Experience</h2>
+    <div class="content">
+        <%= resume.getExperience() != null ? resume.getExperience() : "" %>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Projects</h2>
+    <div class="content">
+        <%= resume.getProjects() != null ? resume.getProjects() : "" %>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Technical Skills</h2>
+    <div class="content">
+        <%= resume.getSkills() != null ? resume.getSkills() : "" %>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Achievements</h2>
+    <div class="content">
+        <%= resume.getAchievements() != null ? resume.getAchievements() : "" %>
+    </div>
+</div>
+
+<a href="/resume/pdf/<%= resume.getId() %>" class="btn-download">
+    Download PDF
+</a>
+
 </body>
 </html>
